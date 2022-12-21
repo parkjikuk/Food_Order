@@ -1,8 +1,28 @@
+import React, { useState } from 'react';
+import Header from './components/Layout/Header';
+import Meals from './components/Meals/Meals';
+import Cart from './components/Cart/Cart';
+import CartProvider from './store/CartProvider';
+
 function App() {
+  const [cartIsShown, setCartIsShown] = useState(false);
+
+  const showCartHandrler = () => {
+    setCartIsShown(true);
+  }
+
+  const hideCartHandler = () => {
+    setCartIsShown(false);
+  }
+
   return (
-    <div>
-      <h2>페이지 시작</h2>
-    </div>
+    <CartProvider>
+      {cartIsShown && <Cart onClose={hideCartHandler} />}
+      <Header onShowCart={showCartHandrler} />
+      <main>
+        <Meals />
+      </main>
+    </CartProvider>
   );
 }
 
